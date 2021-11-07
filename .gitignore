@@ -79,6 +79,7 @@ StyleCopReport.xml
 *.iobj
 *.pch
 *.pdb
+*.pyproj
 *.ipdb
 *.pgc
 *.pgd
