@@ -16,21 +16,23 @@
 ###
 
 import discord
+from discord.ext import commands
 import sqlite3
 import logging
 import shlex
 import json
 from os import environ
 from fuzzywuzzy import process
-from db.db import config
+from db import db
+from db import defaults
 
 
 print("Loading...")
 logging.basicConfig(level=logging.INFO)
 versionNumber = "FINAL RELEASE (Patched 4/20/2021)"
 
-
-client = discord.Client()
+db.init()
+client = commands.Bot(description=default)
 
 @client.event
 async def on_ready():
@@ -40,16 +42,7 @@ async def on_ready():
     startup.info('ID: {0.user.id}'.format(client))
     startup.info("SERVERS: " + str(sum(1 for x in client.guilds)))
 
-    dbCheck = config.cursor()
-    dbCheck.execute("SELECT count(*) FROM sqlite_master WHERE type='table' and name='config'")
-    if dbCheck.fetchone()[0] == 1:
-        dbCheck.close()
-    else:
-        startup.warning("Config table not found! Creating new table.")
-        dbCheck.execute("CREATE TABLE config(id TEXT, name TEXT, value TEXT)")
-        config.commit()
-        dbCheck.close()
-        startup.warning("Config table has been created.")
+    
 
 @client.event
 async def on_message(message):

@@ -1,4 +1,6 @@
 
 defaults = {
-    "defaultPrefix": "m^"
+    "defaultTable": "config",
+    "defaultPrefix": "m^",
+    "description": "Bot Description"
     }
